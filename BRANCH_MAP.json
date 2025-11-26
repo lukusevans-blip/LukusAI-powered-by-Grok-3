@@ -1,0 +1,23 @@
+{
+  "branches": {
+    "main": {
+      "created": "2024-08-30",
+      "type": "stable",
+      "description": "Primary verified LukusAI system"
+    },
+    "Grok3_Experimental": {
+      "created": "2025-02-11",
+      "type": "ai-draft",
+      "model": "Grok-3",
+      "status": "active",
+      "parent": "main"
+    },
+    "ChatGPT_5.1_Drafts": {
+      "created": "2025-02-11",
+      "type": "ai-draft",
+      "model": "OpenAI GPT-5.1",
+      "status": "active",
+      "parent": "main"
+    }
+  }
+}
