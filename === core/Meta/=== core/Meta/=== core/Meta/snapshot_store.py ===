@@ -1,0 +1,46 @@
+#!/usr/bin/env python3
+"""
+Simple Snapshot persistence template for LukusAI.
+Saves snapshots as JSON lines into audits/snapshots/. Produces a short summary in lineage_history.md.
+"""
+
+import os
+import json
+import uuid
+from datetime import datetime
+
+AUDIT_DIR = "audits/snapshots"
+LINEAGE_FILE = "audits/lineage_history.md"
+os.makedirs(AUDIT_DIR, exist_ok=True)
+os.makedirs(os.path.dirname(LINEAGE_FILE), exist_ok=True)
+
+def iso_now():
+    return datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
+
+def save_snapshot(snapshot: dict) -> str:
+    snapshot_id = str(uuid.uuid4())
+    snapshot["snapshot_id"] = snapshot_id
+    snapshot["created_at"] = iso_now()
+    filename = os.path.join(AUDIT_DIR, f"{snapshot_id}.jsonl")
+    with open(filename, "w", encoding="utf-8") as f:
+        json.dump(snapshot, f, ensure_ascii=False, indent=2)
+    # Append a human-readable line to lineage history
+    short = f"- {snapshot['created_at']} | {snapshot_id} | caller: {snapshot.get('caller','unknown')} | summary: {snapshot.get('summary','(no summary)')}\n"
+    with open(LINEAGE_FILE, "a", encoding="utf-8") as lf:
+        lf.write(short)
+    return snapshot_id
+
+if __name__ == "__main__":
+    # quick demo snapshot
+    demo = {
+        "caller": "demo",
+        "input": "Demo input text",
+        "context": "Demo context",
+        "raw_outputs": [],
+        "aggregated": {},
+        "resolved": {},
+        "audit": {"risk_score": 0.0, "human_review_required": False},
+        "summary": "Demo snapshot created by bootstrap"
+    }
+    sid = save_snapshot(demo)
+    print("Saved demo snapshot:", sid)
