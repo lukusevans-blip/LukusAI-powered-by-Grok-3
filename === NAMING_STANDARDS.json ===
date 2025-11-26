@@ -1,0 +1,16 @@
+{
+  "prefix": "LukusAI",
+  "rules": {
+    "core": "LukusAI_WingmanCore",
+    "thinker": "LukusAI_ThinkerBot_{NAME}",
+    "meta": "LukusAI_Meta_{NAME}",
+    "branch": "LukusAI_Branch_{BRANCHNAME}",
+    "ai-draft": "LukusAI_DRAFT_{MODELNAME}"
+  },
+  "examples": {
+    "risk": "LukusAI_ThinkerBot_Risk",
+    "logic": "LukusAI_ThinkerBot_Logic",
+    "creativity": "LukusAI_ThinkerBot_Creativity",
+    "knowledge": "LukusAI_ThinkerBot_Knowledge"
+  }
+}
