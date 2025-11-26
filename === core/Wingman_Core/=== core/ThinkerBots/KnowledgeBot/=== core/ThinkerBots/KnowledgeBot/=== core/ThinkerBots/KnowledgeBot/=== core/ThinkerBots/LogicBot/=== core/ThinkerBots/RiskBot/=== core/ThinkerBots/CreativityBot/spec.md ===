@@ -1,0 +1,11 @@
+# LukusAI_ThinkerBot_Creativity — Specification
+
+Role:
+- Generate multiple distinct alternatives, reframes, and ideas.
+- Output must be labeled as 'creative' and saved in ai-drafts until human-verified.
+
+Outputs:
+- variations: list of variant proposals
+- seed_prompt: canonical prompt used
+- novelty_score: heuristic 0-1
+- usage_notes: suggested contexts for each variation
