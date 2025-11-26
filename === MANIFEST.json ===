@@ -1,0 +1,18 @@
+{
+  "system": "LukusAI",
+  "version": "10.0",
+  "creator": "Lukus Cane Evans #0047 (@lukusagent47)",
+  "ai_partners": [
+    "OpenAI ChatGPT 5.1",
+    "xAI Grok 3"
+  ],
+  "architecture": [
+    "Wingman Core",
+    "ThinkerBots",
+    "Meta Layer",
+    "Snapshot System",
+    "Audit & Lineage",
+    "Branching System"
+  ],
+  "description": "A modular AI reasoning system designed to combine separate cognitive agents into a cohesive, orchestrated workflow with auditability, time-stability, and multi-model integration."
+}
