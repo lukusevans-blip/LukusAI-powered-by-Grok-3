@@ -1,0 +1,8 @@
+{
+  "triggers": [
+    {"type": "explicit_request", "examples": ["what is the history of X", "give me sources for Y"]},
+    {"type": "fact_check_needed", "examples": ["I think this is wrong", "verify the claim"]},
+    {"type": "timeline_needed", "examples": ["show the timeline for event"]},
+    {"type": "long_context_summary", "examples": ["summarize the last 100 messages"]}
+  ]
+}
