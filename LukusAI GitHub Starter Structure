@@ -1,0 +1,36 @@
+LukusAI-powered-by-Grok-3/
+│
+├── README.md                     # Basic project description
+├── MANIFEST.json                 # Core system manifest
+├── TIMESTAMP_REGISTRY.json       # Track original creation / edits
+├── NAMING_STANDARDS.json         # Standardized file/folder names
+├── BRANCH_MAP.json               # Mapping of all branches/modules
+├── WHITEPAPER_LukusAI_v1.0.md   # Design / overview / docs
+│
+├── core/
+│   ├── Wingman_Core/
+│   │   └── workflow.json         # Orchestration workflow
+│   │
+│   ├── ThinkerBots/
+│   │   ├── KnowledgeBot/
+│   │   │   ├── what.json
+│   │   │   ├── how.json
+│   │   │   └── when.json
+│   │   ├── RiskBot/
+│   │   ├── LogicBot/
+│   │   └── CreativityBot/
+│   │
+│   └── Meta/
+│       ├── FILTER_RESOLVE.json
+│       └── snapshot_store.py     # Snapshot / audit logic
+│
+├── ai-drafts/
+│   ├── Grok3/
+│   └── ChatGPT/
+│
+├── verified/
+│   ├── human-verified/
+│   └── published/
+│
+└── audits/
+    └── snapshots/
