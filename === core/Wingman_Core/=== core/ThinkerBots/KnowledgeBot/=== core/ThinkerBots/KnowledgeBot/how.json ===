@@ -1,0 +1,21 @@
+{
+  "ingest": {
+    "method": "parse_documents",
+    "formats": ["md", "json", "pdf_text", "code"],
+    "meta": ["author", "date", "source", "hash"]
+  },
+  "query": {
+    "method": "semantic_search_then_rag",
+    "flow": [
+      "semantic index search",
+      "shortlist topK",
+      "assemble context window",
+      "run reasoning step (LogicBot as needed)"
+    ]
+  },
+  "output_format": {
+    "summary": "plain_text + bullets",
+    "evidence_chain": ["statement", "source_id", "timestamp", "confidence"],
+    "provenance": ["snapshot_id", "commit_hash"]
+  }
+}
