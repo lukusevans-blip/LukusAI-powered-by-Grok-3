@@ -1,0 +1,43 @@
+{
+  "name": "LukusAI_Meta_FILTER_RESOLVE",
+  "version": "1.0",
+  "purpose": "Apply filtering, conflict resolution, and final synthesis rules to aggregated ThinkerBot outputs.",
+  "rules_priority": [
+    "timestamp_registry_enforcement",
+    "safety_and_risk",
+    "factual_consistency",
+    "naming_and_branching_adherence",
+    "human_verification_flags"
+  ],
+  "rules": {
+    "timestamp_registry_enforcement": {
+      "type": "hard",
+      "description": "No change to TIMESTAMP_REGISTRY.json allowed by any automated process. All new modules must create an entry proposal for human signoff."
+    },
+    "safety_and_risk": {
+      "type": "hard",
+      "description": "If any RiskBot output has risk_score >= 0.5, block auto-publish and route to human_verification."
+    },
+    "factual_consistency": {
+      "type": "soft",
+      "description": "Cross-check KnowledgeBot facts with at least two independent sources or require 'confidence' >= 0.8 before auto-publish."
+    },
+    "naming_and_branching_adherence": {
+      "type": "hard",
+      "description": "Ensure all outputs destined for 'verified' branch conform to NAMING_STANDARDS.json and BRANCH_MAP lineage rules."
+    },
+    "conflict_resolution": {
+      "type": "procedural",
+      "algorithm": [
+        "identify_conflicting_statements",
+        "score_by_confidence_and_evidence",
+        "prefer_lower_risk_higher_evidence",
+        "if tie -> escalate to human_verification"
+      ]
+    },
+    "provenance_inclusion": {
+      "type": "hard",
+      "description": "All published outputs must include provenance block (snapshot_id, model_name, prompt_hash, output_hash, timestamp)."
+    }
+  }
+}
