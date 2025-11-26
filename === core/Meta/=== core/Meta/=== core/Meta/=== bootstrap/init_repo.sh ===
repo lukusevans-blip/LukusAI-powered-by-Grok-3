@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+# Bootstrap script to create LukusAI repo skeleton and essential files.
+# Run from the parent folder you want LukusAI created in.
+
+set -e
+
+REPO="LukusAI"
+mkdir -p $REPO
+cd $REPO
+
+# core structure
+mkdir -p core/Wingman_Core
+mkdir -p core/ThinkerBots/KnowledgeBot
+mkdir -p core/ThinkerBots/RiskBot
+mkdir -p core/ThinkerBots/LogicBot
+mkdir -p core/ThinkerBots/CreativityBot
+mkdir -p core/Meta
+mkdir -p ai-drafts/Grok3
+mkdir -p ai-drafts/ChatGPT
+mkdir -p verified/human-verified
+mkdir -p verified/published
+mkdir -p audits/snapshots
+
+# drop essential files (use heredoc)
+cat > README.md <<'README'
+# LukusAI v10.0 — Modular Multi-Agent Cognitive Framework
+Author: Lukus Cane Evans #0047 (@lukusagent47)
+See MANIFEST.json and WHITEPAPER for details.
+README
+
+cat > MANIFEST.json <<'MANIFEST'
+{
+  "system": "LukusAI",
+  "version": "10.0",
+  "creator": "Lukus Cane Evans #0047 (@lukusagent47)"
+}
+MANIFEST
+
+cat > TIMESTAMP_REGISTRY.json <<'TS'
+{
+  "ORIGIN": "2024-08-30",
+  "SYSTEM_CREATION": "2024-08-30",
+  "MODULES": {}
+}
+TS
+
+cat > NAMING_STANDARDS.json <<'NS'
+{
+  "prefix": "LukusAI",
+  "rules": {}
+}
+NS
+
+echo "Creating snapshot_store.py"
+cat > core/Meta/snapshot_store.py <<'PY'
+#!/usr/bin/env python3
+print("Replace with the canonical snapshot_store.py from the master package.")
+PY
+
+# Make executable
+chmod +x core/Meta/snapshot_store.py || true
+
+echo "Bootstrap complete. Files created under $(pwd)."
