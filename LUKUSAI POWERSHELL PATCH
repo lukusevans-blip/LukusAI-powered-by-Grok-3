@@ -1,0 +1,58 @@
+# =========================================================
+# LUKUSAI v10.0 — OFFICIAL POWERSHELL REPO FIX PATCH
+# Author: Lukus Cane Evans #0047
+# Assisted by: Mr Pool (ChatGPT)
+# =========================================================
+
+Write-Host "==> Applying LukusAI Repo Structure Patch..."
+
+# --- Create Required Folders ---
+mkdir core 2>$null
+mkdir core\Wingman_Core 2>$null
+mkdir core\ThinkerBots 2>$null
+mkdir core\ThinkerBots\KnowledgeBot 2>$null
+mkdir core\ThinkerBots\RiskBot 2>$null
+mkdir core\ThinkerBots\LogicBot 2>$null
+mkdir core\ThinkerBots\CreativityBot 2>$null
+mkdir core\Meta 2>$null
+mkdir ai-drafts 2>$null
+mkdir ai-drafts\Grok3 2>$null
+mkdir ai-drafts\ChatGPT 2>$null
+mkdir verified 2>$null
+mkdir verified\human-verified 2>$null
+mkdir verified\published 2>$null
+mkdir audits 2>$null
+mkdir audits\snapshots 2>$null
+
+# --- Move the main architecture files into core ---
+if (Test-Path "workflow.json") { git mv workflow.json core\Wingman_Core\workflow.json }
+if (Test-Path "instruction_set.txt") { git mv instruction_set.txt core\Wingman_Core\instruction_set.txt }
+
+# --- Move ThinkerBot templates if they exist ---
+if (Test-Path "what.json") { git mv what.json core\ThinkerBots\KnowledgeBot\what.json }
+if (Test-Path "how.json") { git mv how.json core\ThinkerBots\KnowledgeBot\how.json }
+if (Test-Path "when.json") { git mv when.json core\ThinkerBots\KnowledgeBot\when.json }
+
+# --- Meta Layer Files ---
+if (Test-Path "FILTER_RESOLVE.json") { git mv FILTER_RESOLVE.json core\Meta\FILTER_RESOLVE.json }
+if (Test-Path "snapshot_store.py") { git mv snapshot_store.py core\Meta\snapshot_store.py }
+
+# --- Move draft files automatically into /ai-drafts ---
+Get-ChildItem -Filter "*draft*" | ForEach-Object {
+    git mv $_.Name ("ai-drafts\ChatGPT\" + $_.Name)
+}
+
+# --- Move Grok 3 outputs ---
+Get-ChildItem -Filter "*GROK*" | ForEach-Object {
+    git mv $_.Name ("ai-drafts\Grok3\" + $_.Name)
+}
+
+# --- Move audits + logs ---
+if (Test-Path "system_audit.log") { git mv system_audit.log audits\system_audit.log }
+if (Test-Path "lineage_history.md") { git mv lineage_history.md audits\lineage_history.md }
+
+Write-Host "==> Patch complete."
+Write-Host "==> Run 'git status' to verify, then:"
+Write-Host "git add ."
+Write-Host "git commit -m 'LukusAI repo auto-structure patch applied'"
+Write-Host "git push"
