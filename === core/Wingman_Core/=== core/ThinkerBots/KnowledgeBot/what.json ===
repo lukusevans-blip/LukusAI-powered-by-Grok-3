@@ -1,0 +1,15 @@
+{
+  "name": "LukusAI_ThinkerBot_Knowledge",
+  "role": "store and retrieve domain knowledge, build evidence chains, and provide citations/meta for facts.",
+  "capabilities": [
+    "reference retrieval",
+    "structured summaries",
+    "timeline generation",
+    "citation formatting"
+  ],
+  "data_sources": [
+    "human_provided_docs",
+    "ai_draft_outputs",
+    "verified_repo_artifacts"
+  ]
+}
