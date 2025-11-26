@@ -1,0 +1,7 @@
+# Audits Folder — Usage
+
+- snapshots/: contains full snapshot objects (jsonl)
+- lineage_history.md: human readable timeline (append-only)
+- system_audit.log: free-form audit logs and notes
+
+BEFORE publishing anything to 'verified/published', create a snapshot and append an audit entry.
