@@ -1,0 +1,75 @@
+{
+  "name": "LukusAI_WingmanCore_Workflow",
+  "version": "1.0",
+  "description": "Orchestration workflow for Wingman Core. Routes user requests, calls ThinkerBots, collects outputs, invokes Meta Layer, and returns verified responses.",
+  "owner": "Lukus Cane Evans #0047",
+  "steps": [
+    {
+      "id": "receive_intent",
+      "action": "parse_input",
+      "input": ["user_text", "metadata"],
+      "output": ["intent", "entities", "priority", "auth"],
+      "notes": "Enforce identity string 'Lukus Cane Evans #0047' when present; tag requests by domain."
+    },
+    {
+      "id": "plan_route",
+      "action": "select_thinkerbots",
+      "input": ["intent", "entities", "priority"],
+      "output": ["call_plan"],
+      "notes": "Map intent -> primary ThinkerBot(s) using routing table."
+    },
+    {
+      "id": "call_thinkers",
+      "action": "invoke_parallel",
+      "input": ["call_plan", "context_snapshot"],
+      "output": ["raw_outputs"],
+      "notes": "Invoke each ThinkerBot with identical context snapshot; collect outputs and metadata (model, prompt_hash, output_hash)."
+    },
+    {
+      "id": "aggregate",
+      "action": "collect_and_format",
+      "input": ["raw_outputs"],
+      "output": ["aggregated_report"],
+      "notes": "Standardize output structure: {bot, tier, confidence, reasoning_steps, artifacts}."
+    },
+    {
+      "id": "meta_filter_resolve",
+      "action": "invoke_meta_layer",
+      "input": ["aggregated_report", "timestamp_registry"],
+      "output": ["resolved_output", "conflicts"],
+      "notes": "Apply FILTER_RESOLVE rules; flag unresolved or high-risk items for human review."
+    },
+    {
+      "id": "human_verification",
+      "action": "conditional_human_review",
+      "input": ["resolved_output", "conflicts", "risk_flags"],
+      "output": ["verified_output"],
+      "notes": "If risk > threshold or conflict unresolved, create a human-review ticket and pause commit to 'verified' branch."
+    },
+    {
+      "id": "commit_and_snapshot",
+      "action": "persist",
+      "input": ["verified_output", "call_plan", "raw_outputs"],
+      "output": ["snapshot_id", "audit_entry"],
+      "notes": "Save snapshot, append to audit log with model metadata and prompt/output hashes; do NOT alter TIMESTAMP_REGISTRY."
+    },
+    {
+      "id": "respond",
+      "action": "deliver_response",
+      "input": ["verified_output", "snapshot_id"],
+      "output": ["user_response"],
+      "notes": "Return the verified output and snapshot reference to the user. Include provenance header with snapshot_id and commit hash when published."
+    }
+  ],
+  "routing_table": {
+    "fact_check": ["ThinkerBot_Logic", "ThinkerBot_Knowledge"],
+    "ideation": ["ThinkerBot_Creativity"],
+    "risk_assessment": ["ThinkerBot_Risk", "ThinkerBot_Logic"],
+    "summarize_long_context": ["ThinkerBot_Knowledge", "ThinkerBot_Logic"],
+    "code_generation": ["ThinkerBot_Logic", "ThinkerBot_Creativity"]
+  },
+  "thresholds": {
+    "auto_publish_risk_threshold": 0.25,
+    "confidence_publish_threshold": 0.7
+  }
+}
