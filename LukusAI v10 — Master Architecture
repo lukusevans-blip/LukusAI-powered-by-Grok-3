@@ -1,0 +1,37 @@
+LukusAI/
+│
+├── README.md
+├── WHITEPAPER_LukusAI_v1.0.md
+├── MANIFEST.json
+├── TIMESTAMP_REGISTRY.json
+├── NAMING_STANDARDS.json
+├── BRANCH_MAP.json
+│
+├── core/
+│   ├── Wingman_Core/
+│   │   ├── spec.md
+│   │   ├── workflow.json
+│   │   └── instruction_set.txt
+│   ├── ThinkerBots/
+│   │   ├── KnowledgeBot/
+│   │   │   ├── what.json
+│   │   │   ├── how.json
+│   │   │   └── when.json
+│   │   ├── RiskBot/
+│   │   ├── LogicBot/
+│   │   └── CreativityBot/
+│   └── Meta/
+│       ├── FILTER_RESOLVE.json
+│       └── Snapshot_System.md
+│
+├── ai-drafts/
+│   ├── Grok3/
+│   └── ChatGPT/
+│
+├── verified/
+│   ├── human-verified/
+│   └── published/
+│
+└── audits/
+    ├── system_audit.log
+    └── lineage_history.md
