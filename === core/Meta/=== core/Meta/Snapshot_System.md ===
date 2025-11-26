@@ -1,0 +1,33 @@
+# Snapshot System — Design & Usage
+
+Purpose:
+- Capture system state before and after Wingman orchestrations.
+- Provide immutable checkpoints that include context, inputs, AI raw outputs, aggregated reports, Meta decisions, and audit metadata.
+
+Snapshot Contents:
+{
+  "snapshot_id": "uuid",
+  "created_at": "ISO8601 timestamp",
+  "origin_commit": "git_commit_hash (if available)",
+  "caller": "user_id or process",
+  "input": "user_text + metadata",
+  "context": "context window used",
+  "raw_outputs": [
+    {"bot":"ThinkerBot_Name", "output": "...", "model": "...", "prompt_hash":"...","output_hash":"..."}
+  ],
+  "aggregated": "...",
+  "resolved": "...",
+  "audit": {"risk_score": 0.12, "human_review_required": false},
+  "provenance": {"manifest_version":"10.0", "timestamp_registry_ref":"TIMESTAMP_REGISTRY.json"}
+}
+
+Storage:
+- Snapshots are stored in `/audits/snapshots/` as compressed JSONL files.
+- Each snapshot produces a human-readable summary in `/audits/lineage_history.md`.
+
+Retention & Immutability:
+- Snapshots are append-only. Do not modify or delete snapshots.
+- To correct an earlier snapshot, create a new snapshot that references the previous snapshot_id and documents the correction with rationale.
+
+Access:
+- Read APIs for auditing and legal review should only read from snapshot files.
